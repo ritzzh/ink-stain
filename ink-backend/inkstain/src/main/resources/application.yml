@@ -1,0 +1,79 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: inkstain
+
+  # ✅ PostgreSQL Configuration
+  datasource:
+    url: jdbc:postgresql://localhost:5432/inkstain
+    username: ritzzh
+    password: ritzzh_eats_tasty_jelly
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update  # Options: validate | update | create | create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  # ✅ MongoDB Configuration (For Real-Time Chat & Location Data)
+  data:
+    mongodb:
+      uri: mongodb+srv://ritzzh:ritzzh_eats_tasty_jelly@ink-stain.u32nn.mongodb.net/?retryWrites=true&w=majority&appName=Ink-Stain
+      database: ink-stain
+
+  # ✅ Redis Configuration (For Caching & WebSocket Chat)
+  cache:
+    type: redis
+  redis:
+    host: localhost
+    port: 6379
+
+  # ✅ File Upload & Storage (S3 or MinIO)
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
+  cloud:
+    aws:
+      s3:
+        bucket-name: inkstain-bucket
+      credentials:
+        access-key: your_access_key
+        secret-key: your_secret_key
+      region:
+        static: us-east-1  # Change based on your AWS region
+      stack:
+        auto: false
+
+  # ✅ Security & JWT
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: http://localhost:8080
+  jwt:
+    secret-key: your_jwt_secret_key
+    expiration-ms: 86400000 # 1 day
+
+  # ✅ WebSockets (For Real-Time Chat)
+  websocket:
+    enabled: true
+    broker:
+      destination-prefixes: /topic, /queue
+    stomp:
+      endpoint: /ws
+
+  # ✅ Logging
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+    org.hibernate: INFO
+  file:
+    name: logs/inkstain.log
+
