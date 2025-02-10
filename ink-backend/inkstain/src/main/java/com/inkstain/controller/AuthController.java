@@ -38,7 +38,6 @@ public class AuthController {
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(Collections.singleton("ROLE_USER")); // Default role
         userRepository.save(user);
 
         return ResponseEntity.ok(Map.of("message", "User registered successfully"));
@@ -47,17 +46,17 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> credentials) {
         Optional<User> optionalUser = userRepository.findByUsername(credentials.get("username"));
-
+        
         if (optionalUser.isEmpty()) {
             return ResponseEntity.status(401).body(Map.of("error", "Invalid credentials"));
         }
-
+        
         User user = optionalUser.get();
-        if (!passwordEncoder.matches(user.getPassword(),credentials.get("password"))) {
+        if (!passwordEncoder.matches((CharSequence)credentials.get("password"), user.getPassword().toString())) {
             return ResponseEntity.status(401).body(Map.of("error", "Invalid credentials"));
         }
 
         String token = jwtUtil.generateToken(user.getUsername());
-        return ResponseEntity.ok(Map.of("token", token));
+        return ResponseEntity.ok(Map.of("token", token, "user", user.getUsername()));
     }
 }

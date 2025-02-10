@@ -5,38 +5,13 @@ import { SocketContext } from '../../../utils/SocketContext'; // Import Socket C
 import { useSelector } from 'react-redux';
 
 function ChatBox() {
-  const { user, loading: userLoading } = useSelector((state) => state.auth);
-  const socket = useContext(SocketContext); // Use Socket Context
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
 
-  // Join Room on mount
-  useEffect(() => {
-    const roomID = [user.username, user.partner].sort().join('_');
-    socket.emit('joinRoom', { user1: user.username, user2: user.partner});
-
-    socket.on('receiveMessage', (message) => {
-      setMessages((prev) => [...prev, message]);
-    });
-
-    return () => {
-      socket.off('receiveMessage');
-    };
-  }, [socket, user.username, user.partner]);
-
-  const sendMessage = () => {
-    if (newMessage.trim()) {
-      const message = {
-        sender: user.username,
-        receiver: user.partner,
-        message: newMessage,
-        type: 'text',
-      };
-      // Emit message to the server
-      socket.emit('sendMessage', message);
-      setNewMessage(''); // Clear input
-    }
-  };  
+  const sendMessage = () =>{
+    setMessages(...messages, newMessage);
+    setNewMessage('');
+  }
 
   return (
     <Box
@@ -70,10 +45,10 @@ function ChatBox() {
       >
         <Stack direction="row" alignItems="center" spacing={2}>
           <Avatar sx={{ bgcolor: '#ffe4e1', color: '#2c2c54', fontSize: '1.2rem', fontWeight: 'bold' }}>
-            {user.partner[0]}
+            X
           </Avatar>
           <Typography variant="h6" component="div" sx={{ fontFamily: "'Dancing Script', cursive" }}>
-            {user.partner}
+            username
           </Typography>
         </Stack>
         <IconButton color="primary">
@@ -95,19 +70,19 @@ function ChatBox() {
           height: '80%'
         }}
       >
-        {messages.map((msg, index) => (
+        {messages && messages?.map((msg, index) => (
           <Box
             key={index}
             sx={{
               display: 'flex',
-              justifyContent: msg.sender === user.username ? 'flex-end' : 'flex-start',
+              justifyContent: msg.sender === true ? 'flex-end' : 'flex-start',
               marginBottom: 2,
             }}
           >
             <Typography
               sx={{
                 padding: 1,
-                backgroundColor: msg.sender === user.username ? '#ffb3ba' : '#d5d5f7',
+                backgroundColor: msg.sender === true ? '#ffb3ba' : '#d5d5f7',
                 color: '#2c2c54',
                 borderRadius: 2,
                 maxWidth: '70%',

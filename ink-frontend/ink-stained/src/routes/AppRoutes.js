@@ -6,6 +6,7 @@ import Hangout from '../pages/hangout/Hangout';
 import Profile from '../pages/profile/Profile';
 import Login from '../pages/auth/Login';
 import SignUp from '../pages/auth/SignUp';
+import Home from '../pages/home/Home';
 
 const AppRoutes = () => (
   <Suspense fallback={<div>Loading...</div>}>
@@ -13,6 +14,14 @@ const AppRoutes = () => (
       <Route path="/login" element={<Login />} />
       <Route path="*" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
+      <Route
+        path="/home"
+        element={
+          <PrivateRoute>
+            <Home />
+          </PrivateRoute>
+        }
+      />      
       <Route
         path="/catch-up"
         element={

@@ -7,6 +7,7 @@ import {
   DirectionsRun,
   AccountCircle,
   Fingerprint,
+  Home,
 } from '@mui/icons-material';
 import { useDispatch } from 'react-redux'; // Import useDispatch for dispatching actions
 import { logout } from '../../features/auth/authSlice'; // Import the logout thunk
@@ -38,6 +39,27 @@ function Sidebar() {
         paddingTop: '20px',
       }}
     >
+      <Link to="/home" style={{ textDecoration: 'none' }}>
+        <Tooltip title="Catch Up" arrow>
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{
+              marginBottom: '20px',
+              padding: '10px',
+              borderRadius: '50%',
+              minWidth: '50px',
+              height: '50px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Home />
+          </Button>
+        </Tooltip>
+      </Link>
+      
       <Link to="/catch-up" style={{ textDecoration: 'none' }}>
         <Tooltip title="Catch Up" arrow>
           <Button
@@ -55,27 +77,6 @@ function Sidebar() {
             }}
           >
             <CatchingPokemon />
-          </Button>
-        </Tooltip>
-      </Link>
-
-      <Link to="/plan-ahead" style={{ textDecoration: 'none' }}>
-        <Tooltip title="Plan Ahead" arrow>
-          <Button
-            variant="contained"
-            color="secondary"
-            sx={{
-              marginBottom: '20px',
-              padding: '10px',
-              borderRadius: '50%',
-              minWidth: '50px',
-              height: '50px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <CalendarToday />
           </Button>
         </Tooltip>
       </Link>

@@ -9,7 +9,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const { loading, error } = useSelector((state) => state.auth);
-  const [credentials, setCredentials] = useState({ usernameOrEmail: '', password: '' });
+  const [credentials, setCredentials] = useState({ username: '', password: '' });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,13 +34,13 @@ const Login = () => {
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <TextField
-                label="Username or Email"
-                name="usernameOrEmail"
+                label="Username"
+                name="username"
                 type="text"
                 fullWidth
                 required
                 variant="outlined"
-                value={credentials.usernameOrEmail}
+                value={credentials.username}
                 onChange={handleChange}
                 disabled={loading}
               />

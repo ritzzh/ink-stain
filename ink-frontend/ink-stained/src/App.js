@@ -27,7 +27,6 @@ function App() {
         <Router>
           <Box sx={{ display: "flex" }}>
             {(showNav && isAuthenticated) && <Sidebar />}
-            <MusicPlayer></MusicPlayer>
             <IconButton 
               color="primary"
               sx={{

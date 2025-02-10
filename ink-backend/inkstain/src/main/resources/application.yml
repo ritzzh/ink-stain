@@ -8,8 +8,8 @@ spring:
   # ✅ PostgreSQL Configuration
   datasource:
     url: jdbc:postgresql://localhost:5432/inkstain
-    username: ritzzh
-    password: ritzzh_eats_tasty_jelly
+    username: root
+    password: root
     driver-class-name: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect

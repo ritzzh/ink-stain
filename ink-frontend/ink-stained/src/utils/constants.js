@@ -1,5 +1,5 @@
 // Base URL for local development or production
-export const BASE_URL = 'http://localhost:5000/api';
+export const BASE_URL = 'http://localhost:8080/api';
 // export const BASE_URL = 'https://tou-backend.onrender.com/api';
 
 export const ENDPOINTS = {

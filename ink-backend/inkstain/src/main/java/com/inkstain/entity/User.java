@@ -16,10 +16,45 @@ public class User {
     private String email;
 
     @Column(nullable = false)
-    private String password;
+    private String password;  
+    
+    // Personal Stats
+    @Column(nullable = true)
+    private String about;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    private Set<String> roles; // e.g., ["ROLE_USER", "ROLE_ADMIN"]
+    @Column(nullable = true)
+    private String age;
+
+    @Column(nullable = true)
+    private String gender;
+
+    @Column(nullable = true)
+    private String following;
+
+    @Column(nullable = true)
+    private String followers;
+
+    @Column(nullable = true)
+    private String creations;
+
+    // Reading Stats
+    @Column(nullable = true)
+    private String currentlyReading;
+
+    @Column(nullable = true)
+    private String favouriteBook;    
+
+    @Column(nullable = true)
+    private String favouriteAuthor;
+
+    @Column(nullable = true)
+    private String favouriteQuote;
+
+    @Column(nullable = true)
+    private String favouriteGenre;
+
+    @Column(nullable = true)
+    private String totalBooksRead;
 
     public String getUsername() {
         return this.username;
@@ -35,11 +70,6 @@ public class User {
 
     public void setPassword(String encode) {
         this.password = encode;
-    }
-
-    public void setRoles(Set<String> singleton) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setRoles'");
     }
 
     // Getters and Setters
